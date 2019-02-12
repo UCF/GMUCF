@@ -2,29 +2,29 @@
 
 # Which edition of the events should be displayed.
 # Override if specified
-if(isset($_GET['edition'])) {
-	if(strtolower($_GET['edition']) == 'weekday') {
+if ( isset( $_GET['edition'] ) ) {
+	if ( strtolower( $_GET['edition'] ) === 'weekday' ) {
 		$edition = EVENTS_WEEKDAY_EDITION;
-	} else if(strtolower($_GET['edition']) == 'weekend') {
+	} elseif ( strtolower( $_GET['edition'] ) === 'weekend' ) {
 		$edition = EVENTS_WEEKEND_EDITION;
 	}
 } else {
 	$edition = get_events_edition();
 }
 
-if($edition === False) {
+if ( $edition === false ) {
 	echo '<div style="width:500px;font-size:40px;margin:auto;text-align:center;">';
 	echo 'There is no events edition due out today. Override by adding an `edition`';
 	echo ' GET paramter to the URI with a value of either `weekday` or `weekend`.</div>';
 	die();
 }
 
-switch($edition) {
+switch ( $edition ) {
 	case EVENTS_WEEKDAY_EDITION:
-		extract(get_weekday_events());
+		extract( get_weekday_events() );
 		break;
 	case EVENTS_WEEKEND_EDITION:
-		extract(get_weekend_events());
+		extract( get_weekend_events() );
 		break;
 }
 ?>
@@ -32,7 +32,7 @@ switch($edition) {
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-		<title>This Week<?=($edition === EVENTS_WEEKEND_EDITION ? 'end' :'')?> @ UCF</title>
+		<title>This Week<?php echo ( $edition === EVENTS_WEEKEND_EDITION ? 'end' :'' ); ?> @ UCF</title>
 		<style type="text/css">
 			body {width:600px;margin:15px auto;font-family:"Helvetica Neue",Helvetica,sans-serif;font-weight:200;}
 
@@ -75,13 +75,13 @@ switch($edition) {
 			#bottom #social {float:right;margin-top:20px;}
 			#bottom #social h2 {font-family:Helvetica,sans-serif;font-weight:100;margin-bottom:5px;}
 			#bottom #social a {text-indent:-300em;width:32px;height:32px;display:block;float:left;margin-left:10px;}
-			#bottom #social #facebook {background:#FFF url('<?=bloginfo('stylesheet_directory')?>/static/img/social/facebook.png') no-repeat center center;margin-left:0;}
-			#bottom #social #youtube {background:#FFF url('<?=bloginfo('stylesheet_directory')?>/static/img/social/youtube.png') no-repeat center center;}
-			#bottom #social #twitter {background:#FFF url('<?=bloginfo('stylesheet_directory')?>/static/img/social/twitter.png') no-repeat center center;}
-			#bottom #social #instagram {background:#FFF url('<?=bloginfo('stylesheet_directory')?>/static/img/social/instagram.png') no-repeat center center;}
+			#bottom #social #facebook {background:#FFF url('<?php echo bloginfo( 'stylesheet_directory' ); ?>/static/img/social/facebook.png') no-repeat center center;margin-left:0;}
+			#bottom #social #youtube {background:#FFF url('<?php echo bloginfo( 'stylesheet_directory' ); ?>/static/img/social/youtube.png') no-repeat center center;}
+			#bottom #social #twitter {background:#FFF url('<?php echo bloginfo( 'stylesheet_directory' ); ?>/static/img/social/twitter.png') no-repeat center center;}
+			#bottom #social #instagram {background:#FFF url('<?php echo bloginfo( 'stylesheet_directory' ); ?>/static/img/social/instagram.png') no-repeat center center;}
 			#bottom #ucf {
 				display:block;
-				background:#FFF url('<?=bloginfo('stylesheet_directory')?>/static/img/logo-no-opportunity.png') no-repeat top left;
+				background:#FFF url('<?php echo bloginfo( 'stylesheet_directory' ); ?>/static/img/logo-no-opportunity.png') no-repeat top left;
 				text-decoration:none;padding-top:61px;
 				float:left;
 				color:#333;
@@ -114,20 +114,20 @@ switch($edition) {
 	<body>
 		<div id="shoutout">UCF, check out:</div>
 		<h1>
-			This Week<?=($edition === EVENTS_WEEKEND_EDITION ? 'end' :'')?> @ <span class="highlight">UCF</span>
+			This Week<?php echo ( $edition === EVENTS_WEEKEND_EDITION ? 'end' :'' ); ?> @ <span class="highlight">UCF</span>
 			<span class="range">
-				<?=date('n/j', $start_date->getTimestamp()).'-'.date('n/j', $end_date->getTimestamp())?>
+				<?php echo date( 'n/j', $start_date->getTimestamp() ).'-'.date( 'n/j', $end_date->getTimestamp() ); ?>
 			</span>
 		</h1>
 		<?
 		// Use includes here instead of get_template_part
 		// to preserve scope.
-		switch($edition) {
+		switch ( $edition ) {
 			case EVENTS_WEEKDAY_EDITION:
-				include('weekday-weather.php');
+				include( 'weekday-weather.php' );
 				break;
 			case EVENTS_WEEKEND_EDITION:
-				include('weekend-weather.php');
+				include( 'weekend-weather.php' );
 				break;
 		}
 		?>
@@ -135,12 +135,12 @@ switch($edition) {
 		<?
 		// Use includes here instead of get_template_part
 		// to preserve scope.
-		switch($edition) {
+		switch ( $edition ) {
 			case EVENTS_WEEKDAY_EDITION:
-				include('weekday-events.php');
+				include( 'weekday-events.php' );
 				break;
 			case EVENTS_WEEKEND_EDITION:
-				include('weekend-events.php');
+				include( 'weekend-events.php' );
 				break;
 		}
 		?>
