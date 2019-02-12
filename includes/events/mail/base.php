@@ -2,29 +2,29 @@
 
 # Which edition of the events should be displayed.
 # Override if specified
-if(isset($_GET['edition'])) {
-	if(strtolower($_GET['edition']) == 'weekday') {
+if ( isset( $_GET['edition'] ) ) {
+	if ( strtolower( $_GET['edition'] ) === 'weekday' ) {
 		$edition = EVENTS_WEEKDAY_EDITION;
-	} else if(strtolower($_GET['edition']) == 'weekend') {
+	} elseif ( strtolower($_GET['edition']) === 'weekend' ) {
 		$edition = EVENTS_WEEKEND_EDITION;
 	}
 } else {
 	$edition = get_events_edition();
 }
 
-if($edition === False) {
+if ( $edition === false ) {
 	echo '<div style="width:500px;font-size:40px;margin:auto;text-align:center;">';
 	echo 'There is no events edition due out today. Override by adding an `edition`';
-	echo ' GET paramter to the URI with a value of either `weekday` or `weekend`.</div>';
+	echo ' GET parameter to the URI with a value of either `weekday` or `weekend`.</div>';
 	die();
 }
 
-switch($edition) {
+switch ( $edition ) {
 	case EVENTS_WEEKDAY_EDITION:
-		extract(get_weekday_events());
+		extract( get_weekday_events() );
 		break;
 	case EVENTS_WEEKEND_EDITION:
-		extract(get_weekend_events());
+		extract( get_weekend_events() );
 		break;
 }
 ?>
@@ -35,7 +35,7 @@ switch($edition) {
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<meta name="format-detection" content="telephone=no" />
 		<meta name="viewport" content="initial-scale=1.0"><!-- So that mobile webkit will display zoomed in -->
-		<title>This Week<?=($edition === EVENTS_WEEKEND_EDITION ? 'end' :'')?> at UCF</title>
+		<title>This Week<?php echo ( $edition === EVENTS_WEEKEND_EDITION ? 'end' : '' ); ?> at UCF</title>
 		<style type="text/css">
 			<!--
 			html, body { margin:0; padding:0; background-color:#FFF; color:#333; font-family:Helvetica, sans-serif; }
@@ -296,10 +296,10 @@ switch($edition) {
 					<table class="t600" width="600" border="0" align="center" cellpadding="0" bgcolor="#FFF" cellspacing="0" style="width: 600px; margin:0; background-color:#FFF;">
 						<tr>
 							<td class="ccollapse100" id="week-at-ucf" style="width:365px;font-size:36px;font-weight:200;">
-								This Week<?=($edition === EVENTS_WEEKEND_EDITION ? 'end' :'')?> @ <span style="color:#ffc907;font-weight:bold">UCF</span>
+								This Week<?php echo ( $edition === EVENTS_WEEKEND_EDITION ? 'end' : '' ); ?> @ <span style="color:#ffc907;font-weight:bold">UCF</span>
 							</td>
 							<td class="ccollapse100" id="week-at-ucf-date" style="width:235px;font-size:36px;font-weight:200;text-align:right;">
-								<?=date('n/j', $start_date->getTimestamp()).'-'.date('n/j', $end_date->getTimestamp())?>
+								<?php echo date( 'n/j', $start_date->getTimestamp() ) . '-' . date( 'n/j', $end_date->getTimestamp() ); ?>
 							</td>
 						</tr>
 					</table>
@@ -308,14 +308,14 @@ switch($edition) {
 			<?
 			// Use includes here instead of get_template_part
 			// to preserve scope.
-			switch($edition) {
+			switch ( $edition ) {
 				case EVENTS_WEEKDAY_EDITION:
-					include('weekday-weather.php');
-					include('weekday-events.php');
+					include( 'weekday-weather.php' );
+					include( 'weekday-events.php' );
 					break;
 				case EVENTS_WEEKEND_EDITION:
-					include('weekend-weather.php');
-					include('weekend-events.php');
+					include( 'weekend-weather.php' );
+					include( 'weekend-events.php' );
 					break;
 			}
 			?>
@@ -334,7 +334,7 @@ switch($edition) {
 						<tr>
 							<td class="ccollapse100pb" style="width:330px;vertical-align:top;">
 								<a href="https://www.ucf.edu">
-									<img src="<?=bloginfo('stylesheet_directory')?>/static/img/logo-no-opportunity.png" style="border:0"/>
+									<img src="<?php echo bloginfo( 'stylesheet_directory' ); ?>/static/img/logo-no-opportunity.png" style="border:0"/>
 								</a>
 								<p style="line-height:1.4em;font-size:15px;margin:0;padding:0;">
 									4000 Central Florida Blvd.
@@ -354,22 +354,22 @@ switch($edition) {
 									<tr>
 										<td>
 											<a href="https://www.facebook.com/ucf/" style="text-decoration:none;">
-												<img style="border:0;" src="<?=bloginfo('stylesheet_directory')?>/static/img/social/facebook.png" />
+												<img style="border:0;" src="<?php echo bloginfo( 'stylesheet_directory' ); ?>/static/img/social/facebook.png" />
 											</a>
 										</td>
 										<td style="padding-left:10px;">
 											<a href="https://www.twitter.com/UCF/" style="text-decoration:none;">
-												<img style="border:0;" src="<?=bloginfo('stylesheet_directory')?>/static/img/social/twitter.png" />
+												<img style="border:0;" src="<?php echo bloginfo( 'stylesheet_directory' ); ?>/static/img/social/twitter.png" />
 											</a>
 										</td>
 										<td style="padding-left:10px;">
 											<a href="https://www.instagram.com/ucf.edu" style="text-decoration:none;">
-												<img style="border:0;" src="<?=bloginfo('stylesheet_directory')?>/static/img/social/instagram.png" />
+												<img style="border:0;" src="<?php echo bloginfo( 'stylesheet_directory' ); ?>/static/img/social/instagram.png" />
 											</a>
 										</td>
 										<td style="padding-left:10px;">
 											<a href="https://www.youtube.com/user/UCF/" style="text-decoration:none;">
-												<img style="border:0;" src="<?=bloginfo('stylesheet_directory')?>/static/img/social/youtube.png" />
+												<img style="border:0;" src="<?php echo bloginfo( 'stylesheet_directory' ); ?>/static/img/social/youtube.png" />
 											</a>
 										</td>
 									</tr>
@@ -385,7 +385,7 @@ switch($edition) {
 					<?
 					// Use includes here instead of get_template_part
 					// to preserve scope.
-					switch($edition) {
+					switch ( $edition ) {
 						case EVENTS_WEEKDAY_EDITION:
 							echo '<a style="color:blue;text-decoration:underline;" href="https://gmucf.smca.ucf.edu/events/weekday/">browser</a>.';
 							break;
