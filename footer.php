@@ -3,5 +3,5 @@
 			</div>
 		</div><!-- #blueprint-container -->
 	</body>
-	<?="\n".footer_()."\n"?>
+	<?php echo "\n" . footer_() . "\n"; ?>
 </html>

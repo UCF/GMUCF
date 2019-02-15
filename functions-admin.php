@@ -1,6 +1,6 @@
 <?php
 
-if (is_admin()) {
+if ( is_admin() ) {
 	add_action( 'admin_menu', 'create_theme_options_page' );
 	add_action( 'admin_init', 'init_theme_options' );
 }
@@ -41,7 +41,7 @@ function create_theme_options_page() {
  * @author Jared Lang
  **/
 function theme_options_page() {
-	include( THEME_INCLUDES_DIR.'/theme-options.php' );
+	include( THEME_INCLUDES_DIR . '/theme-options.php' );
 }
 
 
